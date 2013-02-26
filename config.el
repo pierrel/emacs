@@ -40,17 +40,17 @@
 (autoload 'pcomplete/ack-grep "pcmpl-ack")
 
 ;; LISP stuff
-;; (autoload 'paredit-mode "paredit"
-;;   "Minor mode for pseudo-structurally editing Lisp code." t)
-;; (defun use-paredit ()
-;;   (paredit-mode +1)
-;;   (show-paren-mode +1))
-;; (add-hook 'emacs-lisp-mode-hook       'use-paredit)
-;; (add-hook 'lisp-mode-hook             'use-paredit)
-;; (add-hook 'lisp-interaction-mode-hook 'use-paredit)
-;; (add-hook 'clojure-mode-hook          'use-paredit)
-;; (add-hook 'scheme-mode-hook           'use-paredit)
-;; (setq scheme-program-name "/usr/local/bin/scheme")
+(autoload 'paredit-mode "paredit"
+  "Minor mode for pseudo-structurally editing Lisp code." t)
+(defun use-paredit ()
+  (paredit-mode +1)
+  (show-paren-mode +1))
+(add-hook 'emacs-lisp-mode-hook       'use-paredit)
+(add-hook 'lisp-mode-hook             'use-paredit)
+(add-hook 'lisp-interaction-mode-hook 'use-paredit)
+(add-hook 'clojure-mode-hook          'use-paredit)
+(add-hook 'scheme-mode-hook           'use-paredit)
+(setq scheme-program-name "/usr/local/bin/scheme")
 
 ;; org-mode
 (setq org-todo-keywords
@@ -88,12 +88,7 @@
 ;;;; clojure-mode
 (add-path "site-lisp/clojure-mode")
 (require 'clojure-mode)
-;;;; slime
-(eval-after-load "slime" 
-  '(progn (slime-setup '(slime-repl))))
-(add-path "site-lisp/slime")
-(require 'slime)
-(slime-setup) 
+(add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 
 ;; Javascript Stuff
 ;;; Coffee
