@@ -134,10 +134,14 @@
 (textmate-mode)
 (global-set-key (kbd "M-t") 'textmate-goto-file)
 (setq-default tab-width 2)
+(setq tab-width 2)
 (setq-default indent-tabs-mode nil)
 (global-auto-revert-mode t)
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier nil)
+(setq c-basic-indent 2)
+(setq indent-tabs-mode nil)
+(setq js-indent-level 2)
 
 (tool-bar-mode -1)
 (menu-bar-mode nil)
@@ -157,11 +161,18 @@
  delete-old-versions t
  kept-new-versions 6
  kept-old-versions 2
- version-control t)
+ version-control t
+ line-number-mode t
+ column-number-mode t)
 
 ;; Add stuff to the search path
 (setenv "PATH" (concat "/usr/local/bin" path-separator (getenv "PATH")))
 (setq exec-path (append exec-path '("/usr/local/bin")))
+
+;; mac stuff
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'hyper)
+
 
 ;; extra functions
 ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
