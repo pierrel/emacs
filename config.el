@@ -189,3 +189,9 @@
           (rename-buffer new-name)
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
+
+
+
+;;; local stuff
+(if (file-exists-p "~/site-lisp/local.el")
+    (load-file "~/site-lisp/local.el"))
