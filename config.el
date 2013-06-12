@@ -7,10 +7,10 @@
 (add-path "site-lisp/rinari")
 
 ;; autocomplete
-(add-path "site-lisp/auto-complete/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "site-lisp/auto-complete//ac-dict")
-(ac-config-default)
+;(add-path "site-lisp/auto-complete/")
+;(require 'auto-complete-config)
+;(add-to-list 'ac-dictionary-directories "site-lisp/auto-complete//ac-dict")
+;(ac-config-default)
 
 ;; highlight symbol
 (require 'highlight-symbol)
@@ -89,6 +89,10 @@
 (add-path "site-lisp/clojure-mode")
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+(require 'nrepl)
+(add-hook 'nrepl-mode-hook 'paredit-mode)
+
 
 ;; Javascript Stuff
 ;;; Coffee
@@ -103,9 +107,15 @@
 
 ;; CSS
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
+(require 'less-css-mode)
 
 ;; html
+(add-path "site-lisp/html5-el")
+(eval-after-load "rng-loc"
+  '(add-to-list 'rng-schema-locating-files "~/emacs/site-lisp/html5-el/schemas.xml"))
+(require 'whattf-dt)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . xml-mode))
+
 
 ;;; handlebars
 (add-path "site-lisp/handlebars-mode")
@@ -190,3 +200,9 @@
           (rename-buffer new-name)
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
+
+
+
+;;; local stuff
+(if (file-exists-p "~/site-lisp/local.el")
+    (load-file "~/site-lisp/local.el"))
