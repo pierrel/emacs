@@ -89,6 +89,10 @@
 (add-path "site-lisp/clojure-mode")
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
+(add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+(require 'nrepl)
+(add-hook 'nrepl-mode-hook 'paredit-mode)
+
 
 ;; Javascript Stuff
 ;;; Coffee
