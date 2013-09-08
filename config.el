@@ -151,7 +151,7 @@
 
 (tool-bar-mode -1)
 (menu-bar-mode nil)
-(scroll-bar-mode nil)
+(if (boundp 'scroll-bar-mode) (scroll-bar-mode nil))
 (setq inhibit-splash-screen t)
 (set-default-font "Inconsolata-17")
 (global-auto-revert-mode t)
