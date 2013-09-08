@@ -139,10 +139,6 @@
 (ido-mode)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
-(add-path "site-lisp/textmate.el")
-(require 'textmate)
-(textmate-mode)
-(global-set-key (kbd "M-t") 'textmate-goto-file)
 (setq-default tab-width 2)
 (setq tab-width 2)
 (setq-default indent-tabs-mode nil)
