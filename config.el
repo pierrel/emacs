@@ -134,6 +134,18 @@
 ;; (when window-system          ; start speedbar if we're using a window system
 ;;     (speedbar t))
 
+;;
+;; ace jump mode major function
+;; 
+(autoload
+  'ace-jump-mode
+  "ace-jump-mode"
+  "Emacs quick move minor mode"
+  t)
+;; you can select the key you prefer to
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+
 ;; MISC stuff
 (require 'ido)
 (ido-mode)
