@@ -156,6 +156,7 @@
 
 
 ;; MISC stuff
+(require 'sudo-save)
 (require 'ido)
 (ido-mode)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
