@@ -170,6 +170,7 @@
 (setq c-basic-indent 2)
 (setq indent-tabs-mode nil)
 (setq js-indent-level 2)
+(setq next-line-add-newlines t)
 
 (tool-bar-mode -1)
 (menu-bar-mode nil)
