@@ -161,6 +161,9 @@
 (autoload 'idomenu "idomenu" nil t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
+(global-set-key (kbd "M-i") 'ido-goto-symbol)
+
+;; indentation
 (setq-default tab-width 2)
 (setq tab-width 2)
 (setq-default indent-tabs-mode nil)
