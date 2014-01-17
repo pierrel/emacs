@@ -2,6 +2,8 @@
 (defun add-path (p)
   (add-to-list 'load-path
 	       (concat emacs-root p)))
+(defun load-file-in-site-lisp (p)
+  (load-file (concat emacs-root "site-lisp/" p)))
 
 (add-path "site-lisp/")
 (add-path "site-lisp/rinari")
@@ -34,6 +36,8 @@
 (require 'ack)
 (autoload 'pcomplete/ack "pcmpl-ack")
 (autoload 'pcomplete/ack-grep "pcmpl-ack")
+(load-file-in-site-lisp "smartscan.el")
+(add-hook 'find-file-hook 'smartscan-mode)
 
 ;; LISP stuff
 (autoload 'paredit-mode "paredit"
@@ -158,7 +162,7 @@
 (autoload 'idomenu "idomenu" nil t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
-(global-set-key (kbd "M-i") 'ido-goto-symbol)
+(global-set-key (kbd "M-i") 'idomenu)
 
 ;; indentation
 (setq-default tab-width 2)
