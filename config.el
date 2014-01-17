@@ -6,11 +6,7 @@
 (add-path "site-lisp/")
 (add-path "site-lisp/rinari")
 
-;; autocomplete
-;(add-path "site-lisp/auto-complete/")
-;(require 'auto-complete-config)
-;(add-to-list 'ac-dictionary-directories "site-lisp/auto-complete//ac-dict")
-;(ac-config-default)
+(setq default-directory "~")
 
 ;; highlight symbol
 (require 'highlight-symbol)
