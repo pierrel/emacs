@@ -158,6 +158,7 @@
 ;; MISC stuff
 (require 'ido)
 (ido-mode)
+(autoload 'idomenu "idomenu" nil t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
 (setq-default tab-width 2)
