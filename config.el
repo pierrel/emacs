@@ -2,15 +2,13 @@
 (defun add-path (p)
   (add-to-list 'load-path
 	       (concat emacs-root p)))
+(defun load-file-in-site-lisp (p)
+  (load-file (concat emacs-root "site-lisp/" p)))
 
 (add-path "site-lisp/")
 (add-path "site-lisp/rinari")
 
-;; autocomplete
-;(add-path "site-lisp/auto-complete/")
-;(require 'auto-complete-config)
-;(add-to-list 'ac-dictionary-directories "site-lisp/auto-complete//ac-dict")
-;(ac-config-default)
+(setq default-directory "~")
 
 ;; highlight symbol
 (require 'highlight-symbol)
@@ -38,6 +36,8 @@
 (require 'ack)
 (autoload 'pcomplete/ack "pcmpl-ack")
 (autoload 'pcomplete/ack-grep "pcmpl-ack")
+(load-file-in-site-lisp "smartscan.el")
+(add-hook 'find-file-hook 'smartscan-mode)
 
 ;; LISP stuff
 (autoload 'paredit-mode "paredit"
@@ -159,8 +159,12 @@
 (require 'sudo-save)
 (require 'ido)
 (ido-mode)
+(autoload 'idomenu "idomenu" nil t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
+(global-set-key (kbd "M-i") 'idomenu)
+
+;; indentation
 (setq-default tab-width 2)
 (setq tab-width 2)
 (setq-default indent-tabs-mode nil)
