@@ -156,6 +156,7 @@
 
 
 ;; MISC stuff
+(require 'sudo-save)
 (require 'ido)
 (ido-mode)
 (autoload 'idomenu "idomenu" nil t)
