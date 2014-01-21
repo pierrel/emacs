@@ -154,6 +154,11 @@
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
+;;
+;; Blurb mode
+;;
+(require 'blurb)
+(blurb-mode)
 
 ;; MISC stuff
 (require 'sudo-save)
