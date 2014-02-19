@@ -168,6 +168,10 @@
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
 (setq ido-case-fold  t)
 (global-set-key (kbd "M-i") 'idomenu)
+(global-set-key (kbd "C-x <left>")  'windmove-left)
+(global-set-key (kbd "C-x <right>") 'windmove-right)
+(global-set-key (kbd "C-x <up>")    'windmove-up)
+(global-set-key (kbd "C-x <down>")  'windmove-down)
 
 ;; indentation
 (setq-default tab-width 2)
