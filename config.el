@@ -25,6 +25,14 @@
 (global-set-key (kbd "C-c p d") 'project-root-goto-root)
 (global-set-key (kbd "C-c p l") 'project-root-browse-seen-projects)
 
+;; find file in project
+(add-path "site-lisp/grizzl/")
+(require 'grizzl)
+(load-file-in-site-lisp "fiplr.el")
+(setq fiplr-ignored-globs '((directories (".git" ".svn" "vendor"))
+                            (files ("*.jpg" "*.png" "*.zip" "*~"))))
+(global-set-key (kbd "C-x f") 'fiplr-find-file)
+
 ;; git
 (add-path "site-lisp/egg/")
 (require 'egg)
