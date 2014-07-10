@@ -61,6 +61,10 @@
 (add-hook 'lisp-interaction-mode-hook 'use-paredit)
 (add-hook 'clojure-mode-hook          'use-paredit)
 (add-hook 'scheme-mode-hook           'use-paredit)
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook             'rainbow-delimiters-mode)
+(add-hook 'clojure-mode-hook          'rainbow-delimiters-mode)
 (setq scheme-program-name "/usr/local/bin/scheme")
 
 ;; org-mode
