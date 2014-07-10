@@ -10,6 +10,9 @@
 
 (setq default-directory "~")
 
+;; libs (should come first)
+(require 'dash)
+
 ;; highlight symbol
 (require 'highlight-symbol)
 (setq highlight-symbol-mode 't)
