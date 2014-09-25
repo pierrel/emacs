@@ -65,6 +65,8 @@
       '((sequence "TODO" "STARTED" "DONE")))
 (setq org-todo-keyword-faces
       '(("TODO" . org-todo) ("STARTED" . "yellow") ("DONE" . org-done)))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . org-mode))
+(add-to-list 'auto-mode-alist '("\\.txt\\'" . visual-line-mode))
 
 ;; Rails
 ;; (require 'rinari)
@@ -163,6 +165,11 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;
+;; Dot mode
+;;
+(add-to-list 'auto-mode-alist '("\\.dot\\'" . dot-mode))
+
+;;
 ;; Blurb mode
 ;;
 (require 'blurb)
@@ -180,6 +187,10 @@
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <up>")    'windmove-up)
 (global-set-key (kbd "C-x <down>")  'windmove-down)
+(global-set-key (kbd "C-c o b") 'windmove-left)
+(global-set-key (kbd "C-c o f") 'windmove-right)
+(global-set-key (kbd "C-c o p") 'windmove-up)
+(global-set-key (kbd "C-c o n") 'windmove-down)
 
 ;; indentation
 (setq-default tab-width 2)
@@ -216,8 +227,7 @@
  column-number-mode t)
 
 ;; Add stuff to the search path
-(setenv "PATH" (concat "/usr/local/bin" path-separator (getenv "PATH")))
-(setq exec-path (append exec-path '("/usr/local/bin")))
+(load-file-in-site-lisp "path.el")
 
 ;; mac stuff
 (setq mac-option-modifier 'meta)
