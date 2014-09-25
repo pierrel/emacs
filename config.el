@@ -10,8 +10,26 @@
 
 (setq default-directory "~")
 
-;; libs (should come first)
-(require 'dash)
+;; slowly migrating to package manager
+;;; include the package manager
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+
+;; refresh the package db
+(package-initialize)
+
+; fetch the list of packages available 
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;;; install the packages
+(setq packages '(pkg-info
+                 dash
+                 cider))
+(dolist (package packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;; highlight symbol
 (require 'highlight-symbol)
@@ -105,9 +123,6 @@
 (require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
-(require 'nrepl)
-(add-hook 'nrepl-mode-hook 'paredit-mode)
-
 
 ;; Javascript Stuff
 ;;; Coffee
