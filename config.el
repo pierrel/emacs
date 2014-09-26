@@ -273,16 +273,7 @@
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
-;;; Creates a shell with the project root dir as the buffer name
-(defun last-dir (abs-dir)
-  (first (last (delq nil
-                     (mapcar (lambda (x) (and (not (string= x "")) x))
-                             (split-string default-directory "/"))))))
-(defun named-shell ()
-  (interactive)
-  (with-project-root
-      (shell (concat "*" (last-dir default-directory) "-shell*"))))
-
+(load-file-in-site-lisp "shell-utils.el")
 
 ;;; local stuff
 (if (file-exists-p "~/site-lisp/local.el")
