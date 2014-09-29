@@ -25,6 +25,8 @@
 
 ;;; install the packages
 (setq packages '(pkg-info
+                 paredit
+                 clojure-mode
                  dash
                  cider))
 (dolist (package packages)
@@ -69,8 +71,6 @@
 (add-hook 'find-file-hook 'smartscan-mode)
 
 ;; LISP stuff
-(autoload 'paredit-mode "paredit"
-  "Minor mode for pseudo-structurally editing Lisp code." t)
 (defun use-paredit ()
   (paredit-mode +1)
   (show-paren-mode +1))
@@ -78,11 +78,13 @@
 (add-hook 'lisp-mode-hook             'use-paredit)
 (add-hook 'lisp-interaction-mode-hook 'use-paredit)
 (add-hook 'clojure-mode-hook          'use-paredit)
+(add-hook 'cider-mode-hook            'use-paredit)
 (add-hook 'scheme-mode-hook           'use-paredit)
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook             'rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook          'rainbow-delimiters-mode)
+(add-hook 'cider-mode-hook            'rainbow-delimiters-mode)
 (setq scheme-program-name "/usr/local/bin/scheme")
 
 ;; org-mode
@@ -121,10 +123,10 @@
 
 ;; Clojure stuff
 ;;;; clojure-mode
-(add-path "site-lisp/clojure-mode")
-(require 'clojure-mode)
 (add-to-list 'auto-mode-alist '("\\.cljs\\'" . clojure-mode))
 (add-to-list 'auto-mode-alist '("\\.clj\\'" . clojure-mode))
+(add-hook 'clojure-mode-hook 'cider-mode)
+(add-hook 'cider-mode-hook 'eldoc-mode)
 
 ;; Javascript Stuff
 ;;; Coffee
