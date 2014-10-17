@@ -200,8 +200,11 @@
 (blurb-mode)
 
 ;; MISC stuff
+(require 'buffer-move)
+
 (require 'sudo-save)
 (require 'ido)
+(eval-after-load "dash" '(dash-enable-font-lock))
 (ido-mode)
 (autoload 'idomenu "idomenu" nil t)
 (setq ido-enable-flex-matching t) ;; enable fuzzy matching
@@ -215,8 +218,11 @@
 (global-set-key (kbd "C-c o f") 'windmove-right)
 (global-set-key (kbd "C-c o p") 'windmove-up)
 (global-set-key (kbd "C-c o n") 'windmove-down)
+(global-set-key (kbd "C-c o <up>") 'buf-move-up)
+(global-set-key (kbd "C-c o <down>") 'buf-move-down)
+(global-set-key (kbd "C-c o <left>") 'buf-move-left)
+(global-set-key (kbd "C-c o <right>") 'buf-move-right)
 
-;; indentation
 (setq-default tab-width 2)
 (setq tab-width 2)
 (setq-default indent-tabs-mode nil)
