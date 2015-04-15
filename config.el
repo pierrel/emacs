@@ -150,6 +150,9 @@
 (require 'whattf-dt)
 (add-to-list 'auto-mode-alist '("\\.html\\'" . xml-mode))
 
+;; yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 ;;; handlebars
 (add-path "site-lisp/handlebars-mode")
