@@ -13,10 +13,10 @@
 (defun blurb-wip-get ()
   (interactive)
   (if *blurb-wip-story*
-      (let ()
+      (progn
         (insert *blurb-wip-story*)
         (message (format "%s: %s" *blurb-wip-story* *blurb-wip-story-desc*)))
-    (let ()
+    (progn
       (call-interactively 'blurb-wip-set)
       (call-interactively 'blurb-wip-get))))
 

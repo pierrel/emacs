@@ -139,10 +139,6 @@
                               (make-local-variable 'tab-width)
                               (set 'tab-width 2)))
 
-;; CSS
-(add-to-list 'auto-mode-alist '("\\.scss\\'" . css-mode))
-(require 'less-css-mode)
-
 ;; html
 (add-path "site-lisp/html5-el")
 (eval-after-load "rng-loc"
