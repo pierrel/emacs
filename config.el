@@ -52,7 +52,7 @@
 (define-key evil-normal-state-map (kbd "\\ <right>") 'windmove-right)
 (define-key evil-normal-state-map (kbd "\\ <up>")    'windmove-up)
 (define-key evil-normal-state-map (kbd "\\ <down>")  'windmove-down)
-
+(define-key evil-normal-state-map (kbd "\\p")  'project-root-ack)
 ;; highlight symbol
 (require 'highlight-symbol)
 (setq highlight-symbol-mode 't)
