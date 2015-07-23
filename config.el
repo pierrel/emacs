@@ -39,12 +39,12 @@
 (evil-mode 1)
 
 ;;; evil mode keybindings
-(define-key evil-normal-state-map (kbd "\\f") 'fiplr-find-file)
+(define-key evil-normal-state-map (kbd "\\f") 'fiplr-file)
 (define-key evil-normal-state-map (kbd "\\xf") 'ido-find-file)
 (define-key evil-normal-state-map (kbd "\\b") 'ido-switch-buffer)
-(define-key evil-normal-state-map (kbd "\\x1") 'delete-other-windows)
-(define-key evil-normal-state-map (kbd "\\x2") 'split-window-below)
-(define-key evil-normal-state-map (kbd "\\x3") 'split-window-right)
+(define-key evil-normal-state-map (kbd "\\1") 'delete-other-windows)
+(define-key evil-normal-state-map (kbd "\\2") 'split-window-below)
+(define-key evil-normal-state-map (kbd "\\3") 'split-window-right)
 (define-key evil-normal-state-map (kbd "\\k") 'ido-kill-buffer)
 (define-key evil-normal-state-map (kbd "\\s") 'save-buffer)
 (define-key evil-normal-state-map (kbd "\\") 'save-buffer)
@@ -53,6 +53,7 @@
 (define-key evil-normal-state-map (kbd "\\ <up>")    'windmove-up)
 (define-key evil-normal-state-map (kbd "\\ <down>")  'windmove-down)
 (define-key evil-normal-state-map (kbd "\\p")  'project-root-ack)
+
 ;; highlight symbol
 (require 'highlight-symbol)
 (setq highlight-symbol-mode 't)
