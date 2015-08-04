@@ -7,6 +7,7 @@
 
 (add-path "site-lisp/")
 (add-path "site-lisp/rinari")
+(add-path "site-lisp/evil")
 
 (setq default-directory "~")
 
@@ -33,6 +34,25 @@
 (dolist (package packages)
   (unless (package-installed-p package)
     (package-install package)))
+
+;; evil mode - vim-like...
+(require 'evil)
+(evil-mode 1)
+
+;;; evil mode keybindings
+(define-key evil-normal-state-map (kbd "\\f") 'fiplr-file)
+(define-key evil-normal-state-map (kbd "\\xf") 'ido-find-file)
+(define-key evil-normal-state-map (kbd "\\b") 'ido-switch-buffer)
+(define-key evil-normal-state-map (kbd "\\1") 'delete-other-windows)
+(define-key evil-normal-state-map (kbd "\\2") 'split-window-below)
+(define-key evil-normal-state-map (kbd "\\3") 'split-window-right)
+(define-key evil-normal-state-map (kbd "\\k") 'ido-kill-buffer)
+(define-key evil-normal-state-map (kbd "\\s") 'save-buffer)
+(define-key evil-normal-state-map (kbd "\\ <left>")  'windmove-left)
+(define-key evil-normal-state-map (kbd "\\ <right>") 'windmove-right)
+(define-key evil-normal-state-map (kbd "\\ <up>")    'windmove-up)
+(define-key evil-normal-state-map (kbd "\\ <down>")  'windmove-down)
+(define-key evil-normal-state-map (kbd "\\p")  'project-root-ack)
 
 ;; highlight symbol
 (require 'highlight-symbol)
