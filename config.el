@@ -28,7 +28,8 @@
                  paredit
                  clojure-mode
                  dash
-                 cider))
+                 cider
+                 ))
 (dolist (package packages)
   (unless (package-installed-p package)
     (package-install package)))
@@ -257,6 +258,7 @@
 
 ;; Add stuff to the search path
 (load-file-in-site-lisp "path.el")
+(load-file-in-site-lisp "auto-project.el/auto-project.el")
 
 ;; mac stuff
 (setq mac-option-modifier 'meta)
