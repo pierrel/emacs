@@ -39,14 +39,13 @@
 (evil-mode 1)
 
 ;;; evil mode keybindings
-(define-key evil-normal-state-map (kbd "\\f") 'fiplr-file)
+(define-key evil-normal-state-map (kbd "\\f") 'fiplr-find-file)
 (define-key evil-normal-state-map (kbd "\\xf") 'ido-find-file)
 (define-key evil-normal-state-map (kbd "\\b") 'ido-switch-buffer)
 (define-key evil-normal-state-map (kbd "\\1") 'delete-other-windows)
 (define-key evil-normal-state-map (kbd "\\2") 'split-window-below)
 (define-key evil-normal-state-map (kbd "\\3") 'split-window-right)
 (define-key evil-normal-state-map (kbd "\\k") 'ido-kill-buffer)
-(define-key evil-normal-state-map (kbd "\\s") 'save-buffer)
 (define-key evil-normal-state-map (kbd "\\ <left>")  'windmove-left)
 (define-key evil-normal-state-map (kbd "\\ <right>") 'windmove-right)
 (define-key evil-normal-state-map (kbd "\\ <up>")    'windmove-up)
@@ -179,7 +178,9 @@
 (add-path "site-lisp/haml-mode")
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("*\\.haml" . haml-mode))
-             
+
+;;; SASS mode
+(require 'sass-mode)
 
 ;; Speedbar
 (custom-set-variables
