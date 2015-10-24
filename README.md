@@ -1,7 +1,7 @@
 Just add
 
 ```
-(load-file "/path/top/emacs/repo/config.el")
+(load-file "/path/to/emacs/repo/config.el")
 ```
 
 to your ~/.emacs file
