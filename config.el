@@ -229,15 +229,30 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 
 ;;
-;; Dot mode
-;;
-(add-to-list 'auto-mode-alist '("\\.dot\\'" . dot-mode))
-
-;;
 ;; Blurb mode
 ;;
 (require 'blurb)
 (blurb-mode)
+
+;;
+;; dot extensions
+;;
+(defun graphviz-dot-saved-view ()
+  "Runs dot on the currently-opened file and opens the resulting PNG using the 
+open command"
+  (interactive)
+  (let ((current-file (buffer-file-name))
+        (output-file (replace-regexp-in-string "\.dot$"
+                                        (format ".%s" graphviz-dot-preview-extension)
+                                        (buffer-file-name))))
+    (let ((generate-command (format "dot %s -T%s -o %s" current-file graphviz-dot-preview-extension output-file))
+          (open-command (format "open %s" output-file)))
+      (message (format "running: %s" generate-command))
+      (shell-command generate-command)
+      (message (format "running: %s" open-command))
+      (shell-command open-command))))
+(add-hook 'graphviz-dot-mode-hook 'graphviz-dot-saved-view nil 'make-it-local)
+
 
 ;; MISC stuff
 (require 'buffer-move)
