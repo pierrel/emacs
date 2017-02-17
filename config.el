@@ -111,6 +111,7 @@
 (add-hook 'lisp-interaction-mode-hook 'use-paredit)
 (add-hook 'clojure-mode-hook          'use-paredit)
 (add-hook 'cider-mode-hook            'use-paredit)
+(add-hook 'cider-mode-hook            'eldoc-mode)
 (add-hook 'scheme-mode-hook           'use-paredit)
 
 (require 'rainbow-delimiters)
