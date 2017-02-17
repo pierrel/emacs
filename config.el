@@ -1,4 +1,4 @@
-(defvar emacs-root "~/emacs/")
+(defvar emacs-root "~/src/emacs/")
 (defun add-path (p)
   (add-to-list 'load-path
 	       (concat emacs-root p)))
