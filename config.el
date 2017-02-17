@@ -92,6 +92,16 @@
 (load-file-in-site-lisp "smartscan.el")
 (add-hook 'find-file-hook 'smartscan-mode)
 
+;; sql
+(setq sql-postgres-login-params
+      '((user :default "plarochelle")
+        (database :default "blurb_production")
+        (server :default "oak-bi-postgres02.blurb.com")))
+
+(add-hook 'sql-mode
+          (lambda ()
+            (message "in sql mode")))
+
 ;; LISP stuff
 (defun use-paredit ()
   (paredit-mode +1)
