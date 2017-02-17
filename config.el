@@ -161,6 +161,12 @@
 (add-hook 'clojure-mode-hook 'cider-mode)
 (add-hook 'cider-mode-hook 'eldoc-mode)
 
+;; java stuff
+(add-hook 'java-mode-hook
+          (lambda ()
+            (setq c-basic-offset 2)))
+
+
 ;; Javascript Stuff
 ;;; Coffee
 (add-path "site-lisp/coffee-mode")
