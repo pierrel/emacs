@@ -98,9 +98,10 @@
         (database :default "blurb_production")
         (server :default "oak-bi-postgres02.blurb.com")))
 
-(add-hook 'sql-mode
+(add-hook 'sql-mode-hook
           (lambda ()
-            (message "in sql mode")))
+	    (sql-set-product "postgres")
+            (sql-set-sqli-buffer)))
 
 ;; LISP stuff
 (defun use-paredit ()
