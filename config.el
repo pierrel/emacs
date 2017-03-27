@@ -319,7 +319,10 @@ open command"
 ;; mac stuff
 (setq mac-option-modifier 'meta)
 (setq mac-command-modifier 'hyper)
-
+(defun pbcopy ()
+  (interactive)
+  (shell-command-on-region (region-beginning) (region-end) "pbcopy"))
+(global-set-key (kbd "C-c c") 'pbcopy)
 
 ;; extra functions
 ;;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
