@@ -6,3 +6,5 @@ Just add
 ```
 
 to your ~/.emacs file
+
+Or if you're using [spacemacs](https://www.spacemacs.org) just create a symbolic link to the local .spacemacs file in your home dir.
