@@ -539,11 +539,11 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (custom-set-faces
-   '(default ((t (:background "#000000"))))
-   '(hl-line ((t (:background "#000000")))))
   (global-hl-line-mode nil)
   (hl-line-mode nil)
+  (setq-default
+   evil-escape-key-sequence "jk"
+   evil-escape-unordered-key-sequence "true")
 )
 
 
