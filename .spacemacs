@@ -544,6 +544,63 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq-default
    evil-escape-key-sequence "jk"
    evil-escape-unordered-key-sequence "true")
+
+  ;; ORG configuration for GTD
+  (with-eval-after-load 'org
+    (defun my-org-agenda-skip-all-siblings-but-first ()
+      "Skip all but the first non-done entry."
+      (let (should-skip-entry)
+        (unless (org-current-is-todo)
+          (setq should-skip-entry t))
+        (save-excursion
+          (while (and (not should-skip-entry) (org-goto-sibling t))
+            (when (org-current-is-todo)
+              (setq should-skip-entry t))))
+        (when should-skip-entry
+          (or (outline-next-heading)
+              (goto-char (point-max))))))
+    (defun org-current-is-todo ()
+      (string= "TODO" (org-get-todo-state)))
+
+    (setq org-agenda-custom-commands
+          '(("x" "Experimental" todo "TODO"
+             (org-agenda-skip-function
+              #'my-org-agenda-skip-all-siblings-but-first))))
+
+    (let ((local-org-config "~/.org-config.el"))
+      (if (file-exists-p local-org-config)
+          (progn
+            (message "Local org config file found")
+            (load-file local-org-config))
+        (message "Local org config file not found")))
+    (if (and (boundp '*gtd-inbox-file*)
+             (boundp '*gtd-projects-file*)
+             (boundp '*gtd-ticker-file*)
+             (boundp '*gtd-someday-file*))
+        (progn
+          (message "All GTD file variables found")
+          (setq org-agenda-files `(,*gtd-inbox-file*
+                                   ,*gtd-projects-file*
+                                   ,*gtd-ticker-file*))
+          (setq org-capture-templates
+                `(("t" "Todo [inbox]" entry
+                   (file+headline ,*gtd-inbox-file* "Tasks")
+                   "* TODO %i%?")
+                  ("T" "Tickler" entry
+                   (file+headline ,*gtd-ticker-file* "Tickler")
+                   "* %i%? \n %U")))
+          (setq org-refile-targets
+                `((,*gtd-projects-file* :maxlevel . 3)
+                  (,*gtd-someday-file* :level . 1)
+                  (,*gtd-ticker-file* :maxlevel . 2)))))
+      (message "Not all GTD file variables found"))
+
+  (setq org-todo-keywords
+        '((sequence "TODO(t)"
+                    "WAITING(w)"
+                    "|"
+                    "DONE(d)"
+                    "CANCELLED(c)")))
 )
 
 
@@ -586,5 +643,5 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
