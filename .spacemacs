@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(windows-scripts
+   '(typescript
+     windows-scripts
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -47,7 +48,8 @@ This function should only modify configuration layer settings."
      ;; lsp
      markdown
      multiple-cursors
-     org
+     (org :variables
+          org-agenda-start-with-follow-mode 't)
      yaml
      (graphviz :variables
                default-tab-width 4)
@@ -55,7 +57,9 @@ This function should only modify configuration layer settings."
      (clojure :variables
               clojure-enable-linters '(clj-kondo joker))
      sql
-     python
+     (python :variables
+             python-test-runner 'pytest
+             python-backend 'anaconda)
      markdown
      javascript
      ;; (shell :variables
@@ -75,7 +79,11 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(
+                                      org-roam
+                                      (chatgpt :location (recipe
+                                                          :fetcher github
+                                                          :repo "joshcho/ChatGPT.el")))
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -547,6 +555,8 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
 
   ;; ORG configuration for GTD
   (with-eval-after-load 'org
+    (defun org-current-is-todo ()
+      (string= "TODO" (org-get-todo-state)))
     (defun my-org-agenda-skip-all-siblings-but-first ()
       "Skip all but the first non-done entry."
       (let (should-skip-entry)
@@ -559,13 +569,11 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         (when should-skip-entry
           (or (outline-next-heading)
               (goto-char (point-max))))))
-    (defun org-current-is-todo ()
-      (string= "TODO" (org-get-todo-state)))
 
     (setq org-agenda-custom-commands
           '(("x" "Experimental" todo "TODO"
-             (org-agenda-skip-function
-              #'my-org-agenda-skip-all-siblings-but-first))))
+             ((org-agenda-skip-function
+               #'my-org-agenda-skip-all-siblings-but-first)))))
 
     (let ((local-org-config "~/.org-config.el"))
       (if (file-exists-p local-org-config)
@@ -620,6 +628,26 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
   (setq magit-status-buffer-switch-function 'switch-to-buffer)
   (setq clojure-toplevel-inside-comment-form t)
+  (let ((startup-file "~/OneDrive - Microsoft/gtd/inbox.org"))
+    (if (file-exists-p startup-file)
+        (find-file startup-file)))
+
+  (use-package org-roam
+    :after org
+    :hook (org-mode . org-roam-mode)
+    :custom
+    (org-roam-directory "~/OneDrive - Microsoft/roam")
+    :bind
+    ("C-c n l" . org-roam)
+    ("C-c n t" . org-roam-today)
+    ("C-c n f" . org-roam-find-file)
+    ("C-c n i" . org-roam-insert)
+    ("C-c n g" . org-roam-show-graph))
+
+  ;; ChatGPT
+  (require 'python)
+  (setq chatgpt-repo-path (expand-file-name "chatgpt/" quelpa-build-dir))
+  (global-set-key (kbd "C-c q") #'chatgpt-query)
 )
 
 
@@ -637,7 +665,7 @@ This function is called at the very end of Spacemacs initialization."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
-   '(tern powershell helm-gtags ggtags counsel-gtags counsel swiper ivy bmx-mode yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit sql-indent sphinx-doc spaceline-all-the-icons smeargle slim-mode scss-mode sass-mode restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file npm-mode nose nodejs-repl nameless multi-line mmm-mode markdown-toc macrostep lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc inspector info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe gh-md fuzzy font-lock+ flycheck-package flycheck-joker flycheck-elsa flycheck-clj-kondo flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-web company-anaconda column-enforce-mode clojure-snippets clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
+   '(typescript-mode import-js grizzl add-node-modules-path tern powershell helm-gtags ggtags counsel-gtags counsel swiper ivy bmx-mode yasnippet-snippets yapfify yaml-mode ws-butler writeroom-mode winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil toc-org tagedit symon symbol-overlay string-inflection string-edit sql-indent sphinx-doc spaceline-all-the-icons smeargle slim-mode scss-mode sass-mode restart-emacs request rainbow-delimiters quickrun pytest pyenv-mode pydoc py-isort pug-mode prettier-js popwin poetry pippel pipenv pip-requirements pcre2el password-generator paradox overseer orgit-forge org-superstar org-rich-yank org-projectile org-present org-pomodoro org-mime org-download org-contrib org-cliplink open-junk-file npm-mode nose nodejs-repl nameless multi-line mmm-mode markdown-toc macrostep lorem-ipsum livid-mode live-py-mode link-hint json-reformat json-navigator json-mode js2-refactor js-doc inspector info+ indent-guide importmagic impatient-mode hybrid-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-org helm-mode-manager helm-make helm-ls-git helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-cider helm-c-yasnippet helm-ag graphviz-dot-mode google-translate golden-ratio gnuplot gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe gh-md fuzzy font-lock+ flycheck-package flycheck-joker flycheck-elsa flycheck-clj-kondo flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-org evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu emr emmet-mode elisp-slime-nav editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word cython-mode company-web company-anaconda column-enforce-mode clojure-snippets clean-aindent-mode cider-eval-sexp-fu centered-cursor-mode browse-at-remote blacken auto-yasnippet auto-highlight-symbol auto-compile aggressive-indent ace-link ace-jump-helm-line ac-ispell))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev")
      (javascript-backend . tide)
